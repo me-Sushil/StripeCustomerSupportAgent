@@ -1,13 +1,42 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "RAG-based customer support agent for Stripe documentation",
+  "main": "src/server.js",
   "scripts": {
+    "start": "node --watch src/server.js",
+    "pipeline": "node scripts/pipeline.js full",
+    "pipeline:scrape": "node scripts/pipeline.js scrape",
+    "pipeline:chunk": "node scripts/pipeline.js chunk",
+    "pipeline:embed": "node scripts/pipeline.js embed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "stripe",
+    "rag",
+    "vector-search",
+    "embeddings",
+    "customer-support"
+  ],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@langchain/google-genai": "^2.1.3",
+    "@langchain/pinecone": "^1.0.1",
+    "@langchain/textsplitters": "^1.0.1",
+    "@pinecone-database/pinecone": "^5.1.2",
+    "axios": "^1.13.2",
+    "body-parser": "^2.2.1",
+    "cheerio": "^1.1.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "langchain": "^1.2.3",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "puppeteer": "^24.34.0",
+    "sequelize": "^6.37.7"
+  }
 }
