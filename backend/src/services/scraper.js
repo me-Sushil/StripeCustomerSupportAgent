@@ -33,41 +33,73 @@ class ScraperService {
     }
   }
 
-  // Clean HTML to extract meaningful text
   cleanText(html) {
     const $ = cheerio.load(html);
-
-    // Remove unwanted elements
-    $("script, style, nav, footer, header, iframe, noscript").remove();
-
-    // Get text content
-    let text = $("body").text();
-
-    // Clean up whitespace
+    // 1. REMOVE SPECIFIC NOISE
+    // We remove code blocks that aren't the primary language if possible,
+    // and definitely remove scripts/nav/footer.
+    $(
+      "script, style, nav, footer, header, .sidebar, .table-of-contents"
+    ).remove();
+    // 2. TARGET THE CONTENT AREA (Stripe specific)
+    // Most Stripe docs store the main content in a specific div or article tag.
+    const mainContent = $("article").length
+      ? $("article")
+      : $("main").length
+      ? $("main")
+      : $("body");
+    let text = mainContent.text();
+    // 3. BETTER WHITESPACE CLEANING
     text = text
-      .replace(/\s+/g, " ") // Multiple spaces to single space
-      .replace(/\n\s*\n/g, "\n") // Multiple newlines to single newline
+      .replace(/\t/g, " ")
+      .replace(/ +/g, " ")
+      .replace(/\n\s*\n/g, "\n")
       .trim();
-
     return text;
   }
+  // // Clean HTML to extract meaningful text
+  // cleanText(html) {
+  //   const $ = cheerio.load(html);
+  //   // Remove unwanted elements
+  //   $("script, style, nav, footer, header, iframe, noscript").remove();
+  //   // Get text content
+  //   let text = $("body").text();
+  //   // Clean up whitespace
+  //   text = text
+  //     .replace(/\s+/g, " ") // Multiple spaces to single space
+  //     .replace(/\n\s*\n/g, "\n") // Multiple newlines to single newline
+  //     .trim();
+  //   return text;
+  // }
 
   // Extract metadata from page
+  // extractMetadata(html, url) {
+  //   const $ = cheerio.load(html);
+  //   return {
+  //     url,
+  //     title: $("title").text() || $("h1").first().text() || "Untitled",
+  //     description: $('meta[name="description"]').attr("content") || "",
+  //     author: $('meta[name="author"]').attr("content") || "",
+  //     keywords: $('meta[name="keywords"]').attr("content") || "",
+  //     ogTitle: $('meta[property="og:title"]').attr("content") || "",
+  //     ogDescription: $('meta[property="og:description"]').attr("content") || "",
+  //     scrapedDate: new Date().toISOString(),
+  //   };
+  // }
   extractMetadata(html, url) {
     const $ = cheerio.load(html);
-
+    // Priority: 1. H1 tag (Best for docs), 2. OG Title, 3. HTML Title
+    const title =
+      $("h1").first().text().trim() ||
+      $('meta[property="og:title"]').attr("content") ||
+      $("title").text().trim() ||
+      "Stripe Documentation";
     return {
       url,
-      title: $("title").text() || $("h1").first().text() || "Untitled",
-      description: $('meta[name="description"]').attr("content") || "",
-      author: $('meta[name="author"]').attr("content") || "",
-      keywords: $('meta[name="keywords"]').attr("content") || "",
-      ogTitle: $('meta[property="og:title"]').attr("content") || "",
-      ogDescription: $('meta[property="og:description"]').attr("content") || "",
+      title,
       scrapedDate: new Date().toISOString(),
     };
   }
-
   // Scrape a single URL using Puppeteer (for JavaScript-rendered content)
   async scrapeWithPuppeteer(url) {
     console.log(` Scraping with Puppeteer: ${url}`);
@@ -223,3 +255,4 @@ class ScraperService {
 }
 
 module.exports = new ScraperService();
+// src/services/scraper.js
