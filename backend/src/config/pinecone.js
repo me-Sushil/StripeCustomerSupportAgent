@@ -92,6 +92,25 @@ const getIndexStats = async () => {
     throw error;
   }
 };
+// ⚠️ DANGER: Deletes ALL vectors from the index
+// Use only when you REALLY want to clear Pinecone data
+const deleteAllVectors = async (namespace = "") => {
+  try {
+    const index = pinecone.index(indexName);
+
+    console.log(" Deleting ALL vectors from Pinecone index...");
+    await index.deleteAll();
+    // await index.delete({
+    //   deleteAll: true,
+    //   namespace, // default namespace if empty
+    // });
+
+    console.log(" All vectors deleted successfully");
+  } catch (error) {
+    console.error("Failed to delete vectors:", error.message);
+    throw error;
+  }
+};
 
 // Export Pinecone client and utility functions
 module.exports = {
@@ -99,4 +118,5 @@ module.exports = {
   indexName,
   initializePinecone,
   getIndexStats,
+  deleteAllVectors,
 };
