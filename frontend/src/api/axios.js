@@ -23,7 +23,7 @@ axiosInstance.interceptors.request.use(
     // Log request in development
     if (import.meta.env.DEV) {
       console.log(
-        `🚀 ${config.method.toUpperCase()} ${config.url}`,
+        ` ${config.method.toUpperCase()} ${config.url}`,
         config.data
       );
     }
@@ -37,7 +37,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.error("❌ Request error:", error);
+    console.error("Request error:", error);
     return Promise.reject(error);
   }
 );
@@ -48,7 +48,7 @@ axiosInstance.interceptors.response.use(
     // Log response in development
     if (import.meta.env.DEV) {
       console.log(
-        `✅ ${response.config.method.toUpperCase()} ${response.config.url}`,
+        ` ${response.config.method.toUpperCase()} ${response.config.url}`,
         response.data
       );
     }
@@ -81,15 +81,15 @@ axiosInstance.interceptors.response.use(
           toast.error(data.message || "An error occurred");
       }
 
-      console.error(`❌ Response error [${status}]:`, data);
+      console.error(` Response error [${status}]:`, data);
     } else if (error.request) {
       // Request made but no response received
       toast.error("No response from server. Check your connection.");
-      console.error("❌ No response:", error.request);
+      console.error(" No response:", error.request);
     } else {
       // Error in request setup
       toast.error("Request failed. Please try again.");
-      console.error("❌ Request setup error:", error.message);
+      console.error(" Request setup error:", error.message);
     }
 
     return Promise.reject(error);
