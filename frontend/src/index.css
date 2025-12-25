@@ -1,42 +1,45 @@
 /* src/index.css */
-/* Import Tailwind CSS base, components, and utilities */
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
 
-/* Custom base styles */
-@layer base {
-  body {
-    @apply bg-gray-50 text-gray-900 antialiased;
-  }
-
-  h1 {
-    @apply text-3xl font-bold;
-  }
-
-  h2 {
-    @apply text-2xl font-semibold;
-  }
-
-  h3 {
-    @apply text-xl font-semibold;
-  }
-
-  h4 {
-    @apply text-lg font-semibold;
-  }
-
-  p {
-    @apply text-gray-700;
-  }
-
-  a {
-    @apply text-primary-600 hover:text-primary-700 transition-colors;
-  }
+  --color-secondary-600: #4f46e5;
 }
 
-/* Custom component styles */
+/* Custom base styles - Standard CSS is safer in v4 */
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
+h1 {
+  @apply text-3xl font-bold;
+}
+h2 {
+  @apply text-2xl font-semibold;
+}
+h3 {
+  @apply text-xl font-semibold;
+}
+h4 {
+  @apply text-lg font-semibold;
+}
+p {
+  @apply text-gray-700;
+}
+a {
+  @apply text-primary-600 hover:text-primary-700 transition-colors;
+}
+
 @layer components {
   /* Button variants */
   .btn-primary {
@@ -71,7 +74,6 @@
            transition-all duration-200 ease-in-out;
   }
 
-  /* Input styles */
   .input-field {
     @apply w-full px-4 py-2 border border-gray-300 rounded-lg 
            focus:outline-none focus:ring-2 focus:ring-primary-500 
@@ -83,97 +85,66 @@
   .textarea-field {
     @apply w-full px-4 py-2 border border-gray-300 rounded-lg 
            focus:outline-none focus:ring-2 focus:ring-primary-500 
-           focus:border-transparent resize-vertical min-h-[100px]
+           focus:border-transparent min-h-[100px]
            disabled:bg-gray-100 disabled:cursor-not-allowed
            transition-all duration-200;
+    /* FIX: Changed from @apply resize-vertical to standard CSS */
+    resize: vertical;
   }
 
-  /* Card styles */
   .card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6
-           hover:shadow-md transition-shadow duration-200;
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200;
   }
-
   .card-header {
     @apply border-b border-gray-200 pb-4 mb-4;
   }
-
-  /* Badge styles */
   .badge {
     @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
   }
-
   .badge-success {
     @apply bg-green-100 text-green-800;
   }
-
   .badge-warning {
     @apply bg-yellow-100 text-yellow-800;
   }
-
   .badge-danger {
     @apply bg-red-100 text-red-800;
   }
-
   .badge-info {
     @apply bg-blue-100 text-blue-800;
   }
-
   .badge-gray {
     @apply bg-gray-100 text-gray-800;
   }
 
-  /* Stats card */
   .stats-card {
     @apply bg-gradient-to-br from-primary-50 to-primary-100 
            rounded-xl p-6 border border-primary-200
            hover:shadow-lg transition-all duration-300;
   }
 
-  /* Loading spinner */
   .spinner {
-    @apply animate-spin rounded-full border-4 border-gray-200 
-           border-t-primary-600 h-12 w-12;
+    @apply animate-spin rounded-full border-4 border-gray-200 border-t-primary-600 h-12 w-12;
   }
-
   .spinner-sm {
-    @apply animate-spin rounded-full border-2 border-gray-200 
-           border-t-primary-600 h-5 w-5;
+    @apply animate-spin rounded-full border-2 border-gray-200 border-t-primary-600 h-5 w-5;
   }
 }
 
-/* Custom utilities */
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r 
-           from-primary-600 to-secondary-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600;
   }
-
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
-
-  /* Custom scrollbar */
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-gray-100 rounded-full;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 rounded-full hover:bg-gray-400;
-  }
 }
 
-/* Animations */
+/* Rest of your animations and custom CSS remain the same */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -184,11 +155,9 @@
     transform: translateY(0);
   }
 }
-
 .animate-fadeIn {
   animation: fadeIn 0.3s ease-out;
 }
-
 @keyframes slideIn {
   from {
     transform: translateX(-100%);
@@ -197,29 +166,23 @@
     transform: translateX(0);
   }
 }
-
 .animate-slideIn {
   animation: slideIn 0.3s ease-out;
 }
 
-/* Tooltip */
 .tooltip {
   @apply invisible absolute;
 }
-
 .has-tooltip:hover .tooltip {
   @apply visible z-50;
 }
 
-/* Code block styling */
 pre {
   @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto;
 }
-
 code {
   @apply bg-gray-100 text-red-600 px-2 py-1 rounded text-sm font-mono;
 }
-
 pre code {
   @apply bg-transparent text-gray-100 p-0;
 }
