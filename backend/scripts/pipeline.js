@@ -16,19 +16,18 @@ const vectorStoreService = require("../src/services/vectorStore");
 // Stripe documentation URLs to scrape
 // Add more URLs as needed
 const STRIPE_URLS = [
-  "https://stripe.com/docs",
-  "https://stripe.com/docs/api",
-  "https://stripe.com/docs/payments/payment-methods",
-  "https://stripe.com/docs/billing",
+  "https://docs.stripe.com",
+  "https://docs.stripe.com/api",
+  "https://docs.stripe.com/payments/payment-methods",
+  "https://docs.stripe.com/billing",
   "https://stripe.com/docs/connect",
-  "https://stripe.com/docs/webhooks",
-  "https://stripe.com/docs/disputes",
-  "https://stripe.com/docs/refunds",
-  "https://stripe.com/docs/error-codes",
-  "https://stripe.com/docs/testing",
-  "https://support.stripe.com/topics",
-  "https://stripe.com/docs/development/get-started",
-  // Add more URLs here...
+  "https://docs.stripe.com/connect",
+  "https://docs.stripe.com/disputes",
+  "https://docs.stripe.com/refunds",
+  "https://docs.stripe.com/error-codes",
+  "https://docs.stripe.com/testing",
+  "https://support.stripe.com/",
+  "https://docs.stripe.com/get-started/api-request",
 ];
 
 // ============================================
