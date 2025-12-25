@@ -249,43 +249,76 @@ class VectorStoreService {
       };
     }
   }
+async getChunksForResults(searchResults) {
+  try {
+    // 1. Clean IDs and ensure they are numbers (if your DB uses Auto-increment INT)
+    const chunkIds = searchResults.results.map((r) => {
+      const id = r.chunkId.replace("chunk-", "");
+      return isNaN(id) ? id : parseInt(id); 
+    });
 
-  // Get chunks from database for search results
-  async getChunksForResults(searchResults) {
-    try {
-      const chunkIds = searchResults.results.map((r) => {
-        // Extract chunk ID from vector ID (format: "chunk-123")
-        const id = parseInt(r.chunkId.replace("chunk-", ""));
-        return id;
-      });
+    // 2. Fetch from DB
+    const chunks = await ChunkedDocument.findAll({
+      where: { id: chunkIds },
+      include: ["rawDocument"],
+    });
 
-      // Fetch chunks from database
-      const chunks = await ChunkedDocument.findAll({
-        where: {
-          id: chunkIds,
-        },
-        include: ["rawDocument"],
-      });
+    // 3. Map carefully
+    return searchResults.results.map((result) => {
+      const rawId = result.chunkId.replace("chunk-", "");
+      const searchId = isNaN(rawId) ? rawId : parseInt(rawId);
+      
+      // Use == instead of === to handle potential string/number mismatches
+      const chunk = chunks.find((c) => c.id == searchId);
 
-      // Combine search results with full chunk data
-      const enrichedResults = searchResults.results.map((result) => {
-        const chunkId = parseInt(result.chunkId.replace("chunk-", ""));
-        const chunk = chunks.find((c) => c.id === chunkId);
-
-        return {
-          score: result.score,
-          chunkText: chunk ? chunk.chunkText : null,
-          metadata: chunk ? chunk.metadata : result.metadata,
-          source: chunk?.rawDocument,
-        };
-      });
-
-      return enrichedResults;
-    } catch (error) {
-      console.error(" Failed to enrich results:", error.message);
-      throw error;
-    }
+      return {
+        score: result.score,
+        chunkText: chunk ? chunk.chunkText : "Text not found in database",
+        metadata: chunk ? chunk.metadata : result.metadata,
+        source: chunk?.rawDocument,
+      };
+    });
+  } catch (error) {
+    console.error("Failed to enrich results:", error.message);
+    throw error;
   }
+}
+  // Get chunks from database for search results
+  // async getChunksForResults(searchResults) {
+  //   try {
+  //     const chunkIds = searchResults.results.map((r) => {
+  //       // Extract chunk ID from vector ID (format: "chunk-123")
+  //       const id = parseInt(r.chunkId.replace("chunk-", ""));
+  //       return id;
+  //     });
+
+  //     // Fetch chunks from database
+  //     const chunks = await ChunkedDocument.findAll({
+  //       where: {
+  //         id: chunkIds,
+  //       },
+  //       include: ["rawDocument"],
+  //     });
+
+  //     // Combine search results with full chunk data
+  //     const enrichedResults = searchResults.results.map((result) => {
+  //       const chunkId = parseInt(result.chunkId.replace("chunk-", ""));
+  //       const chunk = chunks.find((c) => c.id === chunkId);
+
+  //       return {
+  //         score: result.score,
+  //         chunkText: chunk ? chunk.chunkText : null,
+  //         metadata: chunk ? chunk.metadata : result.metadata,
+  //         source: chunk?.rawDocument,
+  //       };
+  //     });
+
+  //     return enrichedResults;
+  //   } catch (error) {
+  //     console.error(" Failed to enrich results:", error.message);
+  //     throw error;
+  //   }
+  // }
 
   // Delete a vector from Pinecone
   async deleteVector(chunkId) {
@@ -315,19 +348,6 @@ class VectorStoreService {
     } catch (error) {
       console.error(" Failed to get stats:", error.message);
       throw error;
-    }
-  }
-
-  // Clear all vectors from index (use with caution!)
-  async clearIndex() {
-    try {
-      await this.initialize();
-      await this.index.deleteAll();
-      console.log("  Cleared all vectors from index");
-      return { success: true };
-    } catch (error) {
-      console.error(" Failed to clear index:", error.message);
-      return { success: false, error: error.message };
     }
   }
 }
