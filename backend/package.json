@@ -9,6 +9,7 @@
     "pipeline:scrape": "node scripts/pipeline.js scrape",
     "pipeline:chunk": "node scripts/pipeline.js chunk",
     "pipeline:embed": "node scripts/pipeline.js embed",
+    "resetdb": " node emergency-reset.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -16,7 +17,10 @@
     "rag",
     "vector-search",
     "embeddings",
-    "customer-support"
+    "customer-support",
+    "chat",
+    "llm",
+    "mcp"
   ],
   "author": "",
   "license": "ISC",
@@ -27,6 +31,7 @@
     "@langchain/pinecone": "^1.0.1",
     "@langchain/textsplitters": "^1.0.1",
     "@pinecone-database/pinecone": "^5.1.2",
+    "@modelcontextprotocol/sdk": "^1.0.4",
     "axios": "^1.13.2",
     "body-parser": "^2.2.1",
     "cheerio": "^1.1.2",
