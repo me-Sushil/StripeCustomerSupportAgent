@@ -15,28 +15,6 @@ const pinecone = new Pinecone({
 // An index is like a "database" in Pinecone that stores related vectors
 const indexName = process.env.PINECONE_INDEX_NAME || "stripe-docs";
 
-// const initializePinecone = async () => {
-//   try {
-//     const list = await pinecone.listIndexes();
-//     const indexExists = list.indexes?.some((idx) => idx.name === indexName);
-//     if (!indexExists) {
-//       console.log(` Creating Index: ${indexName}...`);
-//       await pinecone.createIndex({
-//         name: indexName,
-//         dimension: 768,
-//         metric: "cosine",
-//         spec: { serverless: { cloud: "aws", region: "us-east-1" } },
-//       });
-//       // Wait for initialization
-//       await new Promise((resolve) => setTimeout(resolve, 30000));
-//     }
-//     console.log(" Pinecone index ready");
-//     return pinecone.index(indexName);
-//   } catch (error) {
-//     console.error(" Pinecone error:", error.message);
-//     throw error;
-//   }
-// };
 // Function to initialize and verify Pinecone connection
 const initializePinecone = async () => {
   try {
@@ -92,7 +70,7 @@ const getIndexStats = async () => {
     throw error;
   }
 };
-// ⚠️ DANGER: Deletes ALL vectors from the index
+//  DANGER: Deletes ALL vectors from the index
 // Use only when you REALLY want to clear Pinecone data
 const deleteAllVectors = async (namespace = "") => {
   try {
@@ -100,10 +78,6 @@ const deleteAllVectors = async (namespace = "") => {
 
     console.log(" Deleting ALL vectors from Pinecone index...");
     await index.deleteAll();
-    // await index.delete({
-    //   deleteAll: true,
-    //   namespace, // default namespace if empty
-    // });
 
     console.log(" All vectors deleted successfully");
   } catch (error) {
