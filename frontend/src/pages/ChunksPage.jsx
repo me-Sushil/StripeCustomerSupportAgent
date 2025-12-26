@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Boxes, FileText, AlertCircle } from 'lucide-react';
 import { Card } from '../components/common/Card';
 import { Button } from '../components/common/Button';
-import { Badge } from '../components/common/Badge';
 import { Loading } from '../components/common/Loading';
 import { 
   fetchChunkStats,
