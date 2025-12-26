@@ -1,7 +1,6 @@
 # Stripe Customer Support Agent 🤖
 
-> An intelligent, AI-powered customer support system using RAG (Retrieval Augmented Generation) architecture with vector search and LLM integration.
-
+> An intelligent, AI-powered customer support system using RAG (Retrieval Augmented Generation) architecture enhanced by MCP (Model Context Protocol) with vector search and LLM integration.
 
 ## 📋 Table of Contents
 
@@ -23,11 +22,12 @@
 
 ---
 
-
-
 ## 🎯 About The Project
 
-**Stripe Customer Support Agent** is an intelligent documentation assistant that combines the power of AI, vector search, and natural language processing to provide instant, accurate answers to Stripe API questions.
+The **Stripe Customer Support Agent** is a sophisticated AI-powered documentation assistant that helps users find accurate answers to their Stripe questions. 
+
+
+### Why This Project?
 
 ### The Problem
 Traditional documentation search relies on keyword matching, which often fails to understand what users actually need. Users spend time searching through multiple pages to find answers.
@@ -46,158 +46,8 @@ This project uses **RAG (Retrieval Augmented Generation)** technology to:
 - ✅ **Source Citations**: Every answer includes references
 - ✅ **Beautiful UI**: Modern, responsive chat interface
 - ✅ **Admin Control**: Full pipeline management dashboard
-- ✅ **Two Modes**: Standard and MCP-enhanced versions
+- ✅ **MCP-enhanced**: Standard and MCP-enhanced versions
 
----
-
-## ✨ Key Features
-
-### For End Users (Customer Support)
-- 🤖 **AI-Powered Chat**: Ask questions in natural language
-- 📚 **Source Citations**: See where answers come from
-- 💬 **Conversation History**: Context-aware responses
-- 📱 **Responsive Design**: Works on mobile, tablet, and desktop
-- ⚡ **Fast Responses**: Get answers in seconds
-- 👍 **Feedback System**: Rate answer quality
-- 📋 **Copy to Clipboard**: Easy to save responses
-
-### For Administrators (Management)
-- 🕷️ **Web Scraping**: Automatically scrape documentation
-- ✂️ **Smart Chunking**: Break documents into searchable pieces
-- 🧠 **AI Embeddings**: Convert text to vector representations
-- 🔍 **Vector Search**: Find relevant content semantically
-- 📊 **Dashboard**: Monitor system health and statistics
-- 🔄 **Pipeline Control**: Manage the entire data processing flow
-- 📈 **Analytics**: Track usage and performance
-
----
-
-## 🔄 How It Works
-
-### Simple Explanation
-
-```
-1. Documentation → We scrape Stripe docs and store them
-2. Processing → Break into chunks and create AI embeddings
-3. Storage → Save in vector database for fast search
-4. User Question → Convert question to vector
-5. Search → Find similar documentation chunks
-6. AI Response → Generate natural answer with sources
-```
-
-### Visual Flow
-
-```
-┌─────────────────────────────────────────────────────────┐
-│  ADMIN SIDE                                             │
-│                                                         │
-│  1. Add URLs (Stripe Documentation)                    │
-│         ↓                                               │
-│  2. Scrape & Store (PostgreSQL)                        │
-│         ↓                                               │
-│  3. Chunk Text (Smart splitting)                       │
-│         ↓                                               │
-│  4. Create Embeddings (AI vectors)                     │
-│         ↓                                               │
-│  5. Store in Vector Database (Pinecone)                │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│  USER SIDE                                              │
-│                                                         │
-│  1. User asks: "How do I create a payment intent?"     │
-│         ↓                                               │
-│  2. Convert question to vector                         │
-│         ↓                                               │
-│  3. Search vector database for similar content         │
-│         ↓                                               │
-│  4. Get relevant documentation chunks                  │
-│         ↓                                               │
-│  5. Send to AI (Gemini) with context                   │
-│         ↓                                               │
-│  6. Generate natural response + sources                │
-│         ↓                                               │
-│  7. Display to user in beautiful chat UI               │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-```
-
----
-
-## 🛠️ Tech Stack
-
-### Backend
-- **Node.js** - JavaScript runtime
-- **Express.js** - Web server framework
-- **PostgreSQL** - Database for documents and conversations
-- **Sequelize** - Database ORM
-- **Pinecone** - Vector database for semantic search
-- **Google Gemini** - AI for embeddings and chat responses
-- **Puppeteer/Cheerio** - Web scraping tools
-- **LangChain** - Text processing and chunking
-
-### Frontend
-- **React** - UI framework
-- **Redux Toolkit** - State management (Admin)
-- **TailwindCSS** - Styling
-- **Vite** - Build tool
-- **React Markdown** - Render formatted responses
-
-### AI & Search
-- **Gemini Embeddings** - Convert text to 768-dimensional vectors
-- **Gemini Pro** - Generate conversational responses
-- **Pinecone** - Vector similarity search
-- **MCP** - Model Context Protocol for enhanced responses
-
----
-
-## 📋 Prerequisites
-
-Before you begin, make sure you have:
-
-### Required Software
-1. **Node.js** (version 18 or higher)
-   - Download from: https://nodejs.org/
-   - Check version: `node --version`
-
-2. **PostgreSQL** (latest version)
-   - macOS: `brew install postgresql`
-   - Windows: Download from https://www.postgresql.org/
-   - Linux: `sudo apt install postgresql`
-
-3. **Git** (to clone repository)
-   - Download from: https://git-scm.com/
-
-### Required API Keys
-1. **Google Gemini API Key** (Free tier available)
-   - Get from: https://makersuite.google.com/app/apikey
-   - Used for: AI embeddings and chat responses
-
-2. **Pinecone API Key** (Free tier: 1 index, 100K vectors)
-   - Sign up at: https://www.pinecone.io/
-   - Used for: Vector database storage
-
-..........................................................................................
-## 🎯 Overview
-
-The **Stripe Customer Support Agent** is a sophisticated AI-powered documentation assistant that helps users find accurate answers to their Stripe API questions. The system combines:
-
-- **Web Scraping**: Automatically scrapes and indexes Stripe documentation
-- **Vector Search**: Uses semantic search to find relevant content
-- **LLM Integration**: Generates natural, contextual responses using Google's Gemini
-- **Conversation Tracking**: Maintains chat history for context-aware responses
-- **Admin Dashboard**: Full control over data pipeline and system management
-- **User Chat Interface**: Beautiful, responsive chat UI for end-users
-
-### Why This Project?
-
-Traditional documentation search relies on keyword matching, which often fails to understand user intent. This project implements RAG (Retrieval Augmented Generation) to:
-
-1. **Understand Context**: Semantic search finds relevant information even with different wording
-2. **Provide Accurate Answers**: LLM generates responses based on actual documentation
-3. **Cite Sources**: Every answer includes references to source documentation
-4. **Learn from Conversations**: Maintains context across multiple questions
 
 ---
 
@@ -259,7 +109,22 @@ URL Input → Scraping → Chunking → Embedding → Vector Storage → Search 
 - Conversation history tracking
 - Session management
 
+
+### For Administrators (Management)
+- 🕷️ **Web Scraping**: Automatically scrape and indexes Stripe documentation
+- ✂️ **Smart Chunking**: Break documents into searchable pieces
+- 🧠 **AI Embeddings**: Convert text to vector representations
+- 🔍 **Vector Search**: Uses semantic search to find relevant content
+- 📊 **Admin Dashboard**: Full control over data pipeline and system management
+- 🔄 **Pipeline Control**: Manage the entire data processing flow
+- 📈 **Analytics**: Track usage and performance
+- **LLM Integration**: Generates natural, contextual responses using Google's Gemini
+- **Conversation Tracking**: Maintains chat history for context-aware responses
+- **User Chat Interface**: Beautiful, responsive chat UI for end-users
+
 ---
+
+
 
 ## 🏗️ Architecture
 
@@ -342,7 +207,22 @@ URL Input → Scraping → Chunking → Embedding → Vector Storage → Search 
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Data Flow
+
+
+## 🔄 How It Works
+
+### Simple Explanation
+
+```
+1. Documentation → We scrape Stripe docs and store them
+2. Processing → Break into chunks and create AI embeddings
+3. Storage → Save in vector database for fast search
+4. User Question → Convert question to vector
+5. Search → Find similar documentation chunks
+6. AI Response → Generate natural answer with sources
+```
+### Visual Flow
+
 
 #### 1. **Document Processing Pipeline**
 
@@ -391,6 +271,7 @@ Step 4: Vector Storage
 └──────────────┘
 ```
 
+
 #### 2. **User Query Flow**
 
 ```
@@ -416,7 +297,7 @@ Step 1: Vector Search
 Step 2: Context Building
          │
          │ Format chunks into readable context
-         │ (Optional: Enhance with MCP)
+         │ (Enhance with MCP)
          ↓
 ┌────────────────┐
 │ Context String │
@@ -442,8 +323,6 @@ Step 4: Save & Return
 │ to Frontend    │
 └────────────────┘
 ```
-
----
 
 ## 🛠️ Technology Stack
 
@@ -486,14 +365,20 @@ Step 4: Save & Return
 | **TailwindCSS** | 3.4.15 | Styling |
 | **Vite** | 6.0.1 | Build tool |
 
-### External Services
-
-- **Google Gemini API**: Text embeddings & chat completions
-- **Pinecone**: Vector database and similarity search
-- **PostgreSQL**: Structured data storage
-
 ---
 
+## 📋 Prerequisites
+
+Before you begin, make sure you have:
+
+### Required API Keys
+1. **Google Gemini API Key** (Free tier available)
+   - Get from: https://makersuite.google.com/app/apikey
+   - Used for: AI embeddings and chat responses
+
+2. **Pinecone API Key** (Free tier: 1 index, 100K vectors)
+   - Sign up at: https://www.pinecone.io/
+   - Used for: Vector database storage
 
 
 
@@ -518,8 +403,6 @@ npm install
 
 
 ### 3. Database Setup
-# Windows: Start from Services app
-
 # Create database
 psql postgres
 
@@ -528,11 +411,6 @@ psql postgres
 ### 4. Environment Configuration
 
 Create `.env` file in project root:
-
-```bash
-# Copy example env file
-cp .env.example .env
-
 # Or create manually
 touch .env
 ```
@@ -566,7 +444,7 @@ PINECONE_INDEX_NAME=stripe-docs
 PORT=3000
 
 ```
-### 5. Admin Frontend Setup
+### 3. Admin Frontend Setup
 
 ```bash
 # Navigate to frontend folder
@@ -584,7 +462,7 @@ EOF
 cd ..
 ```
 
-### 6. User Frontend Setup
+### 4. User Frontend Setup
 
 ```bash
 # Navigate to user frontend
@@ -597,8 +475,6 @@ npm install react-markdown lucide-react
 # Create .env file
 cat > .env << EOF
 VITE_API_URL=http://localhost:3000
-
-
 
 
 # Expected output:
