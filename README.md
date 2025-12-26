@@ -201,7 +201,7 @@ URL Input → Scraping → Chunking → Embedding → Vector Storage → Search 
 │           │                                │                │
 │  ┌────────────────┐              ┌──────────────────┐       │
 │  │  Google Gemini │              │  MCP Server      │       │
-│  │  - Embeddings  │              │  (Optional)      │       │
+│  │  - Embeddings  │              │                  │       │
 │  │  - Chat LLM    │              │                  │       │
 │  └────────────────┘              └──────────────────┘       │
 └─────────────────────────────────────────────────────────────┘
