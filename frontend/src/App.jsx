@@ -2,7 +2,6 @@
 // src/App.jsx
 // ============================================
 
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Toaster } from "react-hot-toast";
@@ -10,7 +9,6 @@ import store from "./store/store";
 import { Layout } from "./components/layout/Layout";
 import { DashboardPage } from "./pages/DashboardPage";
 import { SearchPage } from "./pages/SearchPage";
-import { ScraperPage } from "./pages/ScraperPage";
 import { PipelinePage } from "./pages/PipelinePage";
 import { ChunksPage } from "./pages/ChunksPage";
 
@@ -22,7 +20,6 @@ function App() {
           <Routes>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/scraper" element={<ScraperPage />} />
             <Route path="/chunks" element={<ChunksPage />} />
             <Route path="/pipeline" element={<PipelinePage />} />
             <Route path="*" element={<DashboardPage />} />
