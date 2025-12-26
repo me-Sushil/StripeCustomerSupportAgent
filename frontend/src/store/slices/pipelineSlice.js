@@ -49,31 +49,31 @@ export const runCompletePipeline = createAsyncThunk(
   }
 );
 
-// Run scraping step only
-export const runScrapingStep = createAsyncThunk(
-  "pipeline/runScraping",
-  async ({ urls, usePuppeteer = false }, { rejectWithValue, dispatch }) => {
-    try {
-      dispatch(addLog({ message: "Starting scraping...", type: "info" }));
-      const response = await api.scrapeBatch(urls, usePuppeteer);
-      dispatch(
-        addLog({
-          message: `Scraped ${response.data.summary.successful} URLs`,
-          type: "success",
-        })
-      );
-      return response.data;
-    } catch (error) {
-      dispatch(
-        addLog({
-          message: `Scraping failed: ${error.message}`,
-          type: "error",
-        })
-      );
-      return rejectWithValue(error.response?.data || error.message);
-    }
-  }
-);
+// // Run scraping step only
+// export const runScrapingStep = createAsyncThunk(
+//   "pipeline/runScraping",
+//   async ({ urls, usePuppeteer = false }, { rejectWithValue, dispatch }) => {
+//     try {
+//       dispatch(addLog({ message: "Starting scraping...", type: "info" }));
+//       const response = await api.scrapeBatch(urls, usePuppeteer);
+//       dispatch(
+//         addLog({
+//           message: `Scraped ${response.data.summary.successful} URLs`,
+//           type: "success",
+//         })
+//       );
+//       return response.data;
+//     } catch (error) {
+//       dispatch(
+//         addLog({
+//           message: `Scraping failed: ${error.message}`,
+//           type: "error",
+//         })
+//       );
+//       return rejectWithValue(error.response?.data || error.message);
+//     }
+//   }
+// );
 
 // Run chunking step only
 export const runChunkingStep = createAsyncThunk(
@@ -102,30 +102,30 @@ export const runChunkingStep = createAsyncThunk(
 );
 
 // Run embedding step only
-export const runEmbeddingStep = createAsyncThunk(
-  "pipeline/runEmbedding",
-  async ({ limit = 100 }, { rejectWithValue, dispatch }) => {
-    try {
-      dispatch(addLog({ message: "Starting embedding...", type: "info" }));
-      const response = await api.processVectors(limit);
-      dispatch(
-        addLog({
-          message: `Embedded ${response.data.data.processed} chunks`,
-          type: "success",
-        })
-      );
-      return response.data;
-    } catch (error) {
-      dispatch(
-        addLog({
-          message: `Embedding failed: ${error.message}`,
-          type: "error",
-        })
-      );
-      return rejectWithValue(error.response?.data || error.message);
-    }
-  }
-);
+// export const runEmbeddingStep = createAsyncThunk(
+//   "pipeline/runEmbedding",
+//   async ({ limit = 100 }, { rejectWithValue, dispatch }) => {
+//     try {
+//       dispatch(addLog({ message: "Starting embedding...", type: "info" }));
+//       const response = await api.processVectors(limit);
+//       dispatch(
+//         addLog({
+//           message: `Embedded ${response.data.data.processed} chunks`,
+//           type: "success",
+//         })
+//       );
+//       return response.data;
+//     } catch (error) {
+//       dispatch(
+//         addLog({
+//           message: `Embedding failed: ${error.message}`,
+//           type: "error",
+//         })
+//       );
+//       return rejectWithValue(error.response?.data || error.message);
+//     }
+//   }
+// );
 
 // ============================================
 // SLICE
@@ -219,25 +219,25 @@ const pipelineSlice = createSlice({
         state.currentStep = null;
       });
 
-    // Scraping step
-    builder
-      .addCase(runScrapingStep.pending, (state) => {
-        state.running = true;
-        state.currentStep = "scraping";
-        state.progress.scraping.status = "running";
-      })
-      .addCase(runScrapingStep.fulfilled, (state, action) => {
-        state.running = false;
-        state.progress.scraping = {
-          status: "complete",
-          count: action.payload.summary?.successful || 0,
-        };
-      })
-      .addCase(runScrapingStep.rejected, (state, action) => {
-        state.running = false;
-        state.error = action.payload;
-        state.progress.scraping.status = "failed";
-      });
+    // // Scraping step
+    // builder
+    //   .addCase(runScrapingStep.pending, (state) => {
+    //     state.running = true;
+    //     state.currentStep = "scraping";
+    //     state.progress.scraping.status = "running";
+    //   })
+    //   .addCase(runScrapingStep.fulfilled, (state, action) => {
+    //     state.running = false;
+    //     state.progress.scraping = {
+    //       status: "complete",
+    //       count: action.payload.summary?.successful || 0,
+    //     };
+    //   })
+    //   .addCase(runScrapingStep.rejected, (state, action) => {
+    //     state.running = false;
+    //     state.error = action.payload;
+    //     state.progress.scraping.status = "failed";
+    //   });
 
     // Chunking step
     builder
@@ -260,26 +260,26 @@ const pipelineSlice = createSlice({
       });
 
     // Embedding step
-    builder
-      .addCase(runEmbeddingStep.pending, (state) => {
-        state.running = true;
-        state.currentStep = "embedding";
-        state.progress.embedding.status = "running";
-      })
-      .addCase(runEmbeddingStep.fulfilled, (state, action) => {
-        state.running = false;
-        state.progress.embedding = {
-          status: "complete",
-          count: action.payload.data?.processed || 0,
-        };
-      })
-      .addCase(runEmbeddingStep.rejected, (state, action) => {
-        state.running = false;
-        state.error = action.payload;
-        state.progress.embedding.status = "failed";
-      });
+//     builder
+//       .addCase(runEmbeddingStep.pending, (state) => {
+//         state.running = true;
+//         state.currentStep = "embedding";
+//         state.progress.embedding.status = "running";
+//       })
+//       .addCase(runEmbeddingStep.fulfilled, (state, action) => {
+//         state.running = false;
+//         state.progress.embedding = {
+//           status: "complete",
+//           count: action.payload.data?.processed || 0,
+//         };
+//       })
+//       .addCase(runEmbeddingStep.rejected, (state, action) => {
+//         state.running = false;
+//         state.error = action.payload;
+//         state.progress.embedding.status = "failed";
+//       });
   },
-});
+ });
 
 // Export actions
 export const {
