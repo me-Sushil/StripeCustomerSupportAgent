@@ -1,13 +1,12 @@
 // src/pages/SearchPage.jsx
 // Semantic search interface for querying the documentation
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Search,
   ExternalLink,
   Copy,
-  ThumbsUp,
   Clock,
   Sparkles,
 } from "lucide-react";
@@ -70,12 +69,6 @@ const SearchResult = ({ result, index }) => {
               title="Copy text"
             >
               <Copy className="w-4 h-4 text-gray-600" />
-            </button>
-            <button
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-              title="Helpful"
-            >
-              <ThumbsUp className="w-4 h-4 text-gray-600" />
             </button>
           </div>
         </div>

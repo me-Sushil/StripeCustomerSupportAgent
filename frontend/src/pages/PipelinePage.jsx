@@ -11,9 +11,7 @@ import toast from "react-hot-toast";
 import { Play, CheckCircle, XCircle, Loader } from "lucide-react";
 import {
   runCompletePipeline,
-  runScrapingStep,
-  runChunkingStep,
-  runEmbeddingStep,
+ 
   selectPipelineRunning,
   selectCurrentStep,
   selectPipelineProgress,
@@ -86,37 +84,6 @@ export const PipelinePage = () => {
     dispatch(runCompletePipeline({ urls: urlList }));
   };
 
-  const handleRunStep = (step) => {
-    switch (step) {
-      case "scraping": {
-        const urlList = urls
-          .split("\n")
-          .map((u) => u.trim())
-          .filter(Boolean);
-
-        if (urlList.length === 0) {
-          toast.error("Please enter URLs for scraping");
-          return;
-        }
-
-        dispatch(runScrapingStep({ urls: urlList }));
-        break;
-      }
-
-      case "chunking": {
-        dispatch(runChunkingStep());
-        break;
-      }
-
-      case "embedding": {
-        dispatch(runEmbeddingStep({ limit: 100 }));
-        break;
-      }
-
-      default:
-        break;
-    }
-  };
 
   return (
     <div className="space-y-6">
@@ -169,33 +136,6 @@ export const PipelinePage = () => {
           isActive={currentStep === "embedding"}
         />
       </div>
-
-      {/* Individual Step Controls */}
-      <Card title="Run Individual Steps">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Button
-            onClick={() => handleRunStep("scraping")}
-            disabled={running}
-            variant="secondary"
-          >
-            Scrape Only
-          </Button>
-          <Button
-            onClick={() => handleRunStep("chunking")}
-            disabled={running}
-            variant="secondary"
-          >
-            Chunk Only
-          </Button>
-          <Button
-            onClick={() => handleRunStep("embedding")}
-            disabled={running}
-            variant="secondary"
-          >
-            Embed Only
-          </Button>
-        </div>
-      </Card>
 
       {/* Logs */}
       <Card title="Pipeline Logs">
