@@ -1,16 +1,14 @@
 // src/pages/DashboardPage.jsx
 // Main dashboard showing system overview and statistics
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FileText,
   Boxes,
   Database,
   TrendingUp,
-  Clock,
   CheckCircle,
-  XCircle,
 } from "lucide-react";
 import { Card } from "../components/common/Card";
 import { Loading } from "../components/common/Loading";
@@ -90,12 +88,6 @@ export const DashboardPage = () => {
             Overview of your Stripe documentation RAG system
           </p>
         </div>
-        <div className="flex gap-2">
-          <button className="btn-secondary">
-            <Clock className="w-4 h-4 mr-2" />
-            Refresh
-          </button>
-        </div>
       </div>
 
       {/* Stats Grid */}
@@ -173,11 +165,11 @@ export const DashboardPage = () => {
       {/* Recent Documents */}
       <Card
         title="Recent Documents"
-        actions={
-          <button className="text-sm text-primary-600 hover:text-primary-700 font-medium">
-            View All →
-          </button>
-        }
+        // actions={
+        //   <button className="text-sm text-primary-600 hover:text-primary-700 font-medium">
+        //     View All →
+        //   </button>
+        // }
       >
         {recentDocuments.length === 0 ? (
           <p className="text-gray-500 text-center py-8">
@@ -274,20 +266,6 @@ export const DashboardPage = () => {
               </div>
               <span className="font-semibold">{pendingDocuments}</span>
             </div>
-          </div>
-        </Card>
-
-        <Card title="Quick Actions">
-          <div className="space-y-2">
-            <button className="w-full btn-primary text-left">
-              Add New URLs
-            </button>
-            <button className="w-full btn-secondary text-left">
-              Process Pending
-            </button>
-            <button className="w-full btn-secondary text-left">
-              View Statistics
-            </button>
           </div>
         </Card>
       </div>
